@@ -9,7 +9,7 @@ pipeline {
        }
        steps {
          script {
-               sh(script: 'curl -sSL install.astronomer.io', returnStdout: true)
+               sh(script: 'curl -sSL install.astronomer.io | sudo bash -s', returnStdout: true)
                sh 'astro deploy -f'
          }
        }
