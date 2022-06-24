@@ -1,7 +1,7 @@
 pipeline {
-    agent any
-    stages {
-      stage('Deploy to Astronomer') {
+ agent any
+   stages {
+     stage('Deploy to Astronomer') {
        when {
         expression {
           return env.GIT_BRANCH == "origin/main"
@@ -9,9 +9,9 @@ pipeline {
        }
        steps {
          script {
-               sh 'curl -LJO https://github.com/astronomer/astro-cli/releases/download/v1.1.0/astro_1.1.0_linux_arm64.tar.gz'
-               sh 'tar xzf astro_1.1.0_linux_arm64.tar.gz'
-               sh './astro deploy ${DEPLOYMENT_ID} -f'
+           sh 'curl -LJO https://github.com/astronomer/astro-cli/releases/download/v1.1.0/astro_1.1.0_linux_arm64.tar.gz'
+           sh 'tar xzf astro_1.1.0_linux_arm64.tar.gz'
+           sh "./astro deploy ${DEPLOYMENT_ID} -f"
          }
        }
      }
@@ -20,5 +20,5 @@ pipeline {
    always {
      cleanWs()
    }
-  }
+ }
 }
