@@ -9,7 +9,6 @@ pipeline {
        }
        steps {
          script {
-               sh 'apt-get update'
                sh 'apt-get install bash'
                sh(script: 'curl -sSL install.astronomer.io | bash -s', returnStdout: true)
                sh 'astro deploy -f'
