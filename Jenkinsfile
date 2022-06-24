@@ -9,8 +9,7 @@ pipeline {
        }
        steps {
          script {
-               sh "sudo su - root -c 'whoami'"
-               sh "curl -sSL install.astronomer.io | bash -s"
+               sh "curl -sSL install.astronomer.io | sudo bash -s"
                sh 'astro deploy -f'
          }
        }
