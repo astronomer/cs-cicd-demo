@@ -9,8 +9,7 @@ pipeline {
        }
        steps {
          script {
-               sh "sudo chown root:jenkins /run/docker.sock"
-               sh 'curl -sSL install.astronomer.io | bash -s'
+               sh "curl -sSL install.astronomer.io | bash -s --user='jenkins'"
                sh 'astro deploy -f'
          }
        }
