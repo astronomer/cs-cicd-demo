@@ -9,8 +9,7 @@ pipeline {
        }
        steps {
          script {
-               sh "usermod -a -G sudo jenkins"
-               sh "curl -sSL install.astronomer.io | sudo bash -s"
+               sh "curl -sSL install.astronomer.io | bash -s"
                sh 'astro deploy -f'
          }
        }
