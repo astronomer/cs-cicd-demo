@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'ubuntu'
-            args '-u root:sudo'
-        }
-    }
+    agent any
     stages {
       stage('Deploy to Astronomer') {
        when {
@@ -14,7 +9,7 @@ pipeline {
        }
        steps {
          script {
-               sh "curl -sSL install.astronomer.io | sudo bash -s"
+               sh "curl -sSL install.astronomer.io"
                sh 'astro deploy -f'
          }
        }
