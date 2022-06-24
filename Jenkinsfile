@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'latest'
+            image 'ubuntu'
             args '-u root:sudo'
         }
     }
