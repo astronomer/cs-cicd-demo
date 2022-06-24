@@ -9,8 +9,8 @@ pipeline {
        }
        steps {
          script {
-               sh 'apk add --update curl && rm -rf /var/cache/apk/*'
-               sh 'apk add bash'
+               sh 'apt-get update'
+               sh 'apt-get install bash'
                sh(script: 'curl -sSL install.astronomer.io | bash -s', returnStdout: true)
                sh 'astro deploy -f'
          }
