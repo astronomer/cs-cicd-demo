@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+    agent {
+        docker {
+            image 'ubuntu'
+            args '-u root:sudo -v $HOME/workspace/Astronomer CICD:/Astronomer CICD'
+        }
+    }
     stages {
       stage('Deploy to Astronomer') {
        when {
