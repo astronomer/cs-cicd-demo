@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'ubuntu'
-            args '-u root:sudo -v $HOME/workspace/Astronomer CICD:/Astronomer CICD'
+            image 'latest'
+            args '-u root:sudo'
         }
     }
     stages {
