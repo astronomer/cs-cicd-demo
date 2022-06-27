@@ -4,15 +4,14 @@ pipeline {
      stage('Set Environment Variables') {
         steps {
             script {
-                switch(env.GIT_BRANCH) {
-                    case 'origin/dev' :
-                        env.ASTRONOMER_KEY_ID = env.DEV_ASTRONOMER_KEY_ID;
-                        env.ASTRONOMER_KEY_SECRET = env.DEV_ASTRONOMER_KEY_SECRET;
-                        env.DEPLOYMENT_ID = env.DEV_DEPLOYMENT_ID;
-                    case 'origin/main' :
-                        env.ASTRONOMER_KEY_ID = env.PROD_ASTRONOMER_KEY_ID;
-                        env.ASTRONOMER_KEY_SECRET = env.PROD_ASTRONOMER_KEY_SECRET;
-                        env.DEPLOYMENT_ID = env.PROD_DEPLOYMENT_ID;
+                if (env.BRANCH_NAME == 'main') {
+                    env.ASTRONOMER_KEY_ID == env.PROD_ASTRONOMER_KEY_ID
+                    env.ASTRONOMER_KEY_SECRET == env.PROD_ASTRONOMER_KEY_SECRET
+                    env.DEPLOYMENT_ID == env.PROD_DEPLOYMENT_ID
+                } else {
+                    env.ASTRONOMER_KEY_ID == env.DEV_ASTRONOMER_KEY_ID
+                    env.ASTRONOMER_KEY_SECRET == env.DEV_ASTRONOMER_KEY_SECRET
+                    env.DEPLOYMENT_ID == env.DEV_DEPLOYMENT_ID
                 }
             }
         }
