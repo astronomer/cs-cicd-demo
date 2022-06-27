@@ -4,12 +4,12 @@ pipeline {
      stage('Set Environment Variables') {
         steps {
             script {
-                switch(branch_name) {
-                    case 'dev' :
+                switch(env.GIT_BRANCH) {
+                    case 'origin/dev' :
                         env.ASTRONOMER_KEY_ID = ${DEV_ASTRONOMER_KEY_ID};
                         env.ASTRONOMER_KEY_SECRET = ${DEV_ASTRONOMER_KEY_SECRET};
                         env.DEPLOYMENT_ID = ${DEV_DEPLOYMENT_ID};
-                    case 'main' :
+                    case 'origin/main' :
                         env.ASTRONOMER_KEY_ID = ${PROD_ASTRONOMER_KEY_ID};
                         env.ASTRONOMER_KEY_SECRET = ${PROD_ASTRONOMER_KEY_SECRET};
                         env.DEPLOYMENT_ID = ${PROD_DEPLOYMENT_ID};
