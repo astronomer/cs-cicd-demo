@@ -5,12 +5,12 @@ pipeline {
         steps {
             script {
                 if (env.BRANCH_NAME == 'main') {
-                    echo 'Branch name is: ${BRANCH_NAME}...setting env vars accordingly.';
+                    echo "The build number is ${env.BRANCH_NAME}";
                     env.ASTRONOMER_KEY_ID = env.PROD_ASTRONOMER_KEY_ID;
                     env.ASTRONOMER_KEY_SECRET = env.PROD_ASTRONOMER_KEY_SECRET;
                     env.DEPLOYMENT_ID = env.PROD_DEPLOYMENT_ID;
                 } else {
-                    echo 'Branch name is: ${BRANCH_NAME}...setting env vars accordingly.';
+                    echo "The build number is ${env.BRANCH_NAME}";
                     env.ASTRONOMER_KEY_ID = env.DEV_ASTRONOMER_KEY_ID;
                     env.ASTRONOMER_KEY_SECRET = env.DEV_ASTRONOMER_KEY_SECRET;
                     env.DEPLOYMENT_ID = env.DEV_DEPLOYMENT_ID;
