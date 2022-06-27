@@ -1,10 +1,26 @@
 pipeline {
  agent any
    stages {
+     stage('Set Environment Variables') {
+        steps {
+            script {
+                switch(branch_name) {
+                    case 'dev' :
+                        env.ASTRONOMER_KEY_ID = ${DEV_ASTRONOMER_KEY_ID};
+                        env.ASTRONOMER_KEY_SECRET = ${DEV_ASTRONOMER_KEY_SECRET};
+                        env.DEPLOYMENT_ID = ${DEV_DEPLOYMENT_ID};
+                    case 'main' :
+                        env.ASTRONOMER_KEY_ID = ${PROD_ASTRONOMER_KEY_ID};
+                        env.ASTRONOMER_KEY_SECRET = ${PROD_ASTRONOMER_KEY_SECRET};
+                        env.DEPLOYMENT_ID = ${PROD_DEPLOYMENT_ID};
+                }
+            }
+        }
+     }
      stage('Deploy to Astronomer') {
        when {
         expression {
-          return env.GIT_BRANCH == "origin/main"
+          return (env.GIT_BRANCH == "origin/main" || env.GIT_BRANCH == "origin/dev")
         }
        }
        steps {
