@@ -4,13 +4,13 @@ pipeline {
      stage('Set Environment Variables') {
         steps {
             script {
-                if (env.BRANCH_NAME == 'main') {
-                    echo "The build number is ${env.BRANCH_NAME}";
+                if (env.GIT_BRANCH == 'origin/main') {
+                    echo "The build number is ${env.GIT_BRANCH}";
                     env.ASTRONOMER_KEY_ID = env.PROD_ASTRONOMER_KEY_ID;
                     env.ASTRONOMER_KEY_SECRET = env.PROD_ASTRONOMER_KEY_SECRET;
                     env.DEPLOYMENT_ID = env.PROD_DEPLOYMENT_ID;
                 } else {
-                    echo "The build number is ${env.BRANCH_NAME}";
+                    echo "The build number is ${env.GIT_BRANCH}";
                     env.ASTRONOMER_KEY_ID = env.DEV_ASTRONOMER_KEY_ID;
                     env.ASTRONOMER_KEY_SECRET = env.DEV_ASTRONOMER_KEY_SECRET;
                     env.DEPLOYMENT_ID = env.DEV_DEPLOYMENT_ID;
