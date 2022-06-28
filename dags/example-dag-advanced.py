@@ -17,48 +17,6 @@ from airflow.utils.task_group import TaskGroup # Used to group tasks together in
 from airflow.utils.trigger_rule import TriggerRule # Used to change how an Operator is triggered
 from airflow.utils.weekday import WeekDay # Used to determine what day of the week it is
 
-"""
-This DAG is intended to demonstrate a number of core Apache Airflow concepts that are central to the pipeline
-authoring experience, including the TaskFlow API, Edge Labels, Jinja templating, branching,
-dynamic task generation, Task Groups, and Trigger Rules.
-
-First, this DAG checks if the current day is a weekday or weekend. Next, the DAG  checks which day of the week
-it is. Lastly, the DAG prints out a bash statement based on which day it is. On Tuesday, for example, the DAG
-prints "It's Tuesday and I'm busy with studying".
-
-This DAG uses the following operators:
-
-BashOperator -
-    Executes a bash script or bash command.
-
-    See more info about this operator here:
-        https://registry.astronomer.io/providers/apache-airflow/modules/bashoperator
-
-DummyOperator -
-    Does nothing but can be used to group tasks in a DAG
-
-    See more info about this operator here:
-        https://registry.astronomer.io/providers/apache-airflow/modules/dummyoperator
-
-EmailOperator -
-    Used to send emails
-
-    See more info about this operator here:
-        https://registry.astronomer.io/providers/apache-airflow/modules/emailoperator
-
-BranchPythonOperator -
-    Allows a workflow to “branch” after a task based on the result of a Python function
-
-    See more info about this operator here:
-        https://registry.astronomer.io/providers/apache-airflow/modules/branchpythonoperator
-
-BranchDayOfWeekOperator -
-    Branches into one of two lists of tasks depending on the current day
-
-    See more info about this operator here:
-        https://registry.astronomer.io/providers/apache-airflow/modules/branchdayofweekoperator
-"""
-
 # Reference data that defines "weekday" as well as the activity assigned to each day of the week.
 DAY_ACTIVITY_MAPPING = {
     "monday": {"is_weekday": True, "activity": "guitar lessons"},
