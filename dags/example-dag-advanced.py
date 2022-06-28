@@ -17,7 +17,6 @@ from airflow.utils.task_group import TaskGroup # Used to group tasks together in
 from airflow.utils.trigger_rule import TriggerRule # Used to change how an Operator is triggered
 from airflow.utils.weekday import WeekDay # Used to determine what day of the week it is
 
-# Reference data that defines "weekday" as well as the activity assigned to each day of the week.
 DAY_ACTIVITY_MAPPING = {
     "monday": {"is_weekday": True, "activity": "guitar lessons"},
     "tuesday": {"is_weekday": True, "activity": "studying"},
