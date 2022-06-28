@@ -1,6 +1,11 @@
 pipeline {
  agent any
    stages {
+     stage('Print variables') {
+        steps {
+            echo "The branch name is ${env.BRANCH_NAME}";
+        }
+     }
      stage('Set Environment Variables') {
        when {
         expression {
