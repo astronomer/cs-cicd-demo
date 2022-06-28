@@ -9,7 +9,7 @@ pipeline {
      stage('Set Environment Variables') {
        when {
         expression {
-          return (env.BRANCH_NAME == "dev" || env.GIT_BRANCH == "main")
+          branch 'main' || branch 'dev'
         }
        }
         steps {
@@ -33,7 +33,7 @@ pipeline {
      stage('Deploy to Astronomer') {
        when {
         expression {
-          return (env.BRANCH_NAME == "dev" || env.GIT_BRANCH == "main")
+          branch 'main' || branch 'dev'
         }
        }
        steps {
