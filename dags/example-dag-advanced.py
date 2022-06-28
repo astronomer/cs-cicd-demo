@@ -28,15 +28,13 @@ DAY_ACTIVITY_MAPPING = {
 }
 
 
-@task(multiple_outputs=True) # multiple_outputs=True unrolls dictionaries into separate XCom values
+@task(multiple_outputs=True)
 def _going_to_the_beach() -> Dict:
     return {
         "subject": "Beach day!",
         "body": "It's Saturday and I'm heading to the beach.<br><br>Come join me!<br>",
     }
 
-
-# This functions gets the activity from the "DAY_ACTIVITY_MAPPING" dictionary
 def _get_activity(day_name) -> str:
     activity_id = DAY_ACTIVITY_MAPPING[day_name]["activity"].replace(" ", "_")
 
@@ -45,9 +43,6 @@ def _get_activity(day_name) -> str:
 
     return f"weekend_activities.{activity_id}"
 
-# When using the DAG decorator, the "dag" argument doesn't need to be specified for each task.
-# The "dag_id" value defaults to the name of the function it is decorating if not explicitly set.
-# In this example, the "dag_id" value would be "example_dag_advanced".
 @dag(
     # This DAG is set to run for the first time on June 11, 2021. Best practice is to use a static start_date.
     # Subsequent DAG runs are instantiated based on scheduler_interval below.
