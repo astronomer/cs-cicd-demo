@@ -17,8 +17,6 @@ from airflow.utils.task_group import TaskGroup # Used to group tasks together in
 from airflow.utils.trigger_rule import TriggerRule # Used to change how an Operator is triggered
 from airflow.utils.weekday import WeekDay # Used to determine what day of the week it is
 
-# Add a test comment to dev
-
 """
 This DAG is intended to demonstrate a number of core Apache Airflow concepts that are central to the pipeline
 authoring experience, including the TaskFlow API, Edge Labels, Jinja templating, branching,
