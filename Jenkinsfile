@@ -4,6 +4,7 @@ pipeline {
      stage('Print variables') {
         steps {
             echo "The branch name is ${env.GIT_BRANCH}";
+            sh 'printenv'
         }
      }
      stage('Set Environment Variables') {
