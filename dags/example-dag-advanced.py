@@ -67,9 +67,7 @@ def _get_activity(day_name) -> str:
     tags=["example"], # If set, this tag is shown in the DAG view of the Airflow UI
 )
 def example_dag_advanced():
-    # DummyOperator placeholder for first task
     begin = DummyOperator(task_id="begin")
-    # Last task will only trigger if no previous task failed
     end = DummyOperator(task_id="end", trigger_rule=TriggerRule.NONE_FAILED)
 
     # This task checks which day of the week it is
