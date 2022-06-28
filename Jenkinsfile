@@ -4,7 +4,7 @@ pipeline {
      stage('Set Environment Variables') {
        when {
         expression {
-          return (env.GIT_BRANCH == "origin/main" || env.GIT_BRANCH == "origin/dev")
+          return (env.BRANCH_NAME == "dev" || env.GIT_BRANCH == "main")
         }
        }
         steps {
@@ -28,7 +28,7 @@ pipeline {
      stage('Deploy to Astronomer') {
        when {
         expression {
-          return (env.GIT_BRANCH == "origin/main" || env.GIT_BRANCH == "origin/dev")
+          return (env.BRANCH_NAME == "dev" || env.GIT_BRANCH == "main")
         }
        }
        steps {
