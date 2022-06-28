@@ -3,13 +3,13 @@ pipeline {
    stages {
      stage('Print variables') {
         steps {
-            echo "The branch name is ${env.BRANCH_NAME}";
+            echo "The branch name is ${env.GIT_BRANCH}";
         }
      }
      stage('Set Environment Variables') {
        when {
         expression {
-          branch 'main' || branch 'dev'
+          return (env.GIT_BRANCH == "origin/dev" || env.GIT_BRANCH == "origin/main")
         }
        }
         steps {
@@ -33,7 +33,7 @@ pipeline {
      stage('Deploy to Astronomer') {
        when {
         expression {
-          branch 'main' || branch 'dev'
+          return (env.GIT_BRANCH == "origin/dev" || env.GIT_BRANCH == "origin/main")
         }
        }
        steps {
