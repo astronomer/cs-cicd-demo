@@ -1,16 +1,21 @@
 pipeline {
  agent any
    stages {
-     stage('Setup Parameters') {
+     stage('Set Environment Variables') {
+        steps {
+            script {
+                env.ASTRONOMER_KEY_ID = params.ASTRONOMER_KEY_ID
+                env.ASTRONOMER_KEY_SECRET = params.ASTRONOMER_KEY_SECRET
+                env.DEPLOYMENT_ID = params.DEPLOYMENT_ID
+            }
+        }
+     }
+     stage('Deploy to Astronomer') {
        steps {
          script {
-            properties([
-                githubProjectProperty(displayName: '', projectUrlStr: 'https://github.com/astronomer/cs-cicd-demo/'),
-                parameters([string(defaultValue: 'RmUkDHvhaCSMKeLAHejhxGdebOz4M0hb', name: 'ASTRONOMER_KEY_ID'),
-                string(defaultValue: 'gExNgKtTlQtJixXRn31do6qzSB9UIFlllqMAOwu6TYFN_uUlX6ISH36iprg9SseB', name: 'ASTRONOMER_KEY_SECRET'),
-                string(defaultValue: 'cl4xce7dx500201bzlxbveud5c', name: 'DEPLOYMENT_ID')]),
-                pipelineTriggers([githubPush()])
-            ])
+           sh 'curl -LJO https://github.com/astronomer/astro-cli/releases/download/v1.1.0/astro_1.1.0_linux_amd64.tar.gz'
+           sh 'tar xzf astro_1.1.0_linux_amd64.tar.gz'
+           sh "./astro deploy ${DEPLOYMENT_ID} -f"
          }
        }
      }
