@@ -6,12 +6,7 @@ from airflow.decorators import dag, task # DAG and task decorators for interfaci
 
 @dag(
     schedule_interval="@daily",
-    # This DAG is set to run for the first time on January 1, 2021. Best practice is to use a static
-    # start_date. Subsequent DAG runs are instantiated based on scheduler_interval
     start_date=datetime(2021, 1, 1),
-    # When catchup=False, your DAG will only run for the latest schedule_interval. In this case, this means
-    # that tasks will not be run between January 1, 2021 and 30 mins ago. When turned on, this DAG's first
-    # run will be for the next 30 mins, per the schedule_interval
     catchup=False,
     default_args={
         "retries": 2,
