@@ -1,24 +1,22 @@
 pipeline {
  agent any
    stages {
-     stage('Set Dynamic Variables') {
-//        when {
-//         expression {
-//           return (env.GIT_BRANCH == "origin/main" || env.GIT_BRANCH == "origin/dev")
-//         }
-//        }
-        steps {
-            script {
-                sh 'printenv'
-            }
-        }
-     }
      stage('Set Environment Variables') {
         steps {
             script {
-                env.ASTRONOMER_KEY_ID = params.ASTRONOMER_KEY_ID
-                env.ASTRONOMER_KEY_SECRET = params.ASTRONOMER_KEY_SECRET
-                env.DEPLOYMENT_ID = params.DEPLOYMENT_ID
+                if (env.GIT_BRANCH == 'main') {
+                    echo "The git branch is ${env.GIT_BRANCH}";
+                    env.ASTRONOMER_KEY_ID = env.PROD_ASTRONOMER_KEY_ID;
+                    env.ASTRONOMER_KEY_SECRET = env.PROD_ASTRONOMER_KEY_SECRET;
+                    env.DEPLOYMENT_ID = env.PROD_DEPLOYMENT_ID;
+                } else if (env.GIT_BRANCH == 'dev') {
+                    echo "The git branch is ${env.GIT_BRANCH}";
+                    env.ASTRONOMER_KEY_ID = env.DEV_ASTRONOMER_KEY_ID;
+                    env.ASTRONOMER_KEY_SECRET = env.DEV_ASTRONOMER_KEY_SECRET;
+                    env.DEPLOYMENT_ID = env.DEV_DEPLOYMENT_ID;
+                } else {
+                    echo "This git branch ${env.GIT_BRANCH} is not configured in this pipeline."
+                }
             }
         }
      }
