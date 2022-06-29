@@ -14,9 +14,9 @@ from airflow.decorators import dag, task # DAG and task decorators for interfaci
     # run will be for the next 30 mins, per the schedule_interval
     catchup=False,
     default_args={
-        "retries": 2, # If a task fails, it will retry 2 times.
+        "retries": 2,
     },
-    tags=['example']) # If set, this tag is shown in the DAG view of the Airflow UI
+    tags=['example'])
 def example_dag_basic():
 
     @task()
@@ -26,7 +26,7 @@ def example_dag_basic():
         order_data_dict = json.loads(data_string)
         return order_data_dict
 
-    @task(multiple_outputs=True) # multiple_outputs=True unrolls dictionaries into separate XCom values
+    @task(multiple_outputs=True)
     def transform(order_data_dict: dict):
         """
         #### Transform task
