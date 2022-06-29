@@ -44,27 +44,17 @@ def _get_activity(day_name) -> str:
     return f"weekend_activities.{activity_id}"
 
 @dag(
-    # This DAG is set to run for the first time on June 11, 2021. Best practice is to use a static start_date.
-    # Subsequent DAG runs are instantiated based on scheduler_interval below.
     start_date=datetime(2021, 6, 11),
-    # This defines how many instantiations of this DAG (DAG Runs) can execute concurrently. In this case,
-    # we're only allowing 1 DAG run at any given time, as opposed to allowing multiple overlapping DAG runs.
     max_active_runs=1,
-    # This defines how often your DAG will run, or the schedule by which DAG runs are created. It can be
-    # defined as a cron expression or custom timetable. This DAG will run daily.
     schedule_interval="@daily",
-    # Default settings applied to all tasks within the DAG; can be overwritten at the task level.
     default_args={
-        "owner": "community", # This defines the value of the "owner" column in the DAG view of the Airflow UI
-        "retries": 2, # If a task fails, it will retry 2 times.
-        "retry_delay": timedelta(minutes=3), # A task that fails will wait 3 minutes to retry.
+        "owner": "community",
+        "retries": 2,
+        "retry_delay": timedelta(minutes=3),
     },
-    default_view="graph", # This defines the default view for this DAG in the Airflow UI
-    # When catchup=False, your DAG will only run for the latest schedule interval. In this case, this means
-    # that tasks will not be run between June 11, 2021 and 1 day ago. When turned on, this DAG's first run
-    # will be for today, per the @daily schedule interval
+    default_view="graph",
     catchup=False,
-    tags=["example"], # If set, this tag is shown in the DAG view of the Airflow UI
+    tags=["example"],
 )
 def example_dag_advanced():
     begin = DummyOperator(task_id="begin")
