@@ -1,6 +1,18 @@
 pipeline {
  agent any
    stages {
+     stage('Set Dynamic Variables') {
+//        when {
+//         expression {
+//           return (env.GIT_BRANCH == "origin/main" || env.GIT_BRANCH == "origin/dev")
+//         }
+//        }
+        steps {
+            script {
+                sh 'printenv'
+            }
+        }
+     }
      stage('Set Environment Variables') {
         steps {
             script {
