@@ -1,25 +1,6 @@
 pipeline {
  agent any
    stages {
-     stage('Set Environment Variables') {
-        steps {
-            script {
-                if (env.GIT_BRANCH == 'main') {
-                    echo "The git branch is ${env.GIT_BRANCH}";
-                    env.ASTRONOMER_KEY_ID = env.PROD_ASTRONOMER_KEY_ID;
-                    env.ASTRONOMER_KEY_SECRET = env.PROD_ASTRONOMER_KEY_SECRET;
-                    env.DEPLOYMENT_ID = env.PROD_DEPLOYMENT_ID;
-                } else if (env.GIT_BRANCH == 'dev') {
-                    echo "The git branch is ${env.GIT_BRANCH}";
-                    env.ASTRONOMER_KEY_ID = env.DEV_ASTRONOMER_KEY_ID;
-                    env.ASTRONOMER_KEY_SECRET = env.DEV_ASTRONOMER_KEY_SECRET;
-                    env.DEPLOYMENT_ID = env.DEV_DEPLOYMENT_ID;
-                } else {
-                    echo "This git branch ${env.GIT_BRANCH} is not configured in this pipeline."
-                }
-            }
-        }
-     }
      stage('Deploy to Astronomer') {
        steps {
          script {
